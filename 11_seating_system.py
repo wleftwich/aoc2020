@@ -27,7 +27,7 @@ def changeseat(chart, seatkey):
 
 
 def nextchart(chart):
-    return {key: changeseat(chart, key) for key in chart.keys()}
+    return {key: changeseat(chart, key) for key in chart}
 
 
 def run_till_stabilized(chart):
@@ -69,7 +69,7 @@ def changeseat2(chart, seatkey):
 
 
 def nextchart2(chart):
-    return {key: changeseat2(chart, key) for key in chart.keys()}
+    return {key: changeseat2(chart, key) for key in chart}
 
 
 def run_till_stabilized2(chart):
