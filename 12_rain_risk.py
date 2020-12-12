@@ -18,9 +18,13 @@ class Navigate:
         return p + x * -1, h
     
     def L(self, x, p, h):
+        if x % 90:
+            raise ValueError("L command only defined for multiples of 90")
         return p, h * pow(1j, (x % 360) // 90)
 
     def R(self, x, p, h):
+        if x % 90:
+            raise ValueError("R command only defined for multiples of 90")
         return p, h * pow(-1j, (x % 360) // 90)
     
     def F(self, x, p, h):
