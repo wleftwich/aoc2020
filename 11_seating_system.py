@@ -54,19 +54,13 @@ def changeseat2(chart, seatkey):
         return seat
     occupied = 0
     for drxn in [-1, -1+1j, 1j, 1+1j, 1, 1-1j, -1j, -1-1j]:
+        neighbor = '.'
         scale = 0
-        while True:
+        while neighbor == '.':
             scale += 1
-            nkey = (drxn * scale) + seatkey
-            if nkey not in chart:
-                break
-            neighbor = chart[nkey]
-            if neighbor == '.':
-                pass
-            else:
-                if neighbor == '#':
-                    occupied += 1
-                break
+            neighbor = chart.get((scale * drxn) + seatkey)
+        if neighbor == '#':
+            occupied += 1
     if seat == 'L' and occupied == 0:
         return '#'
     if seat == '#' and occupied > 4:
