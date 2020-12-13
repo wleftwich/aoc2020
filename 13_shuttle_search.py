@@ -33,7 +33,6 @@ def parse_bustext(txt):
     return [(i, int(bus)) for (i, bus) in enumerate(txt.split(',')) if bus.isdigit()]
 
 def align_schedule(sched):
-    buses = []
     start = 1
     interval = 1
     for (offset, bus) in sched:
