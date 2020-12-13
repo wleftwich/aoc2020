@@ -1,4 +1,5 @@
 import itertools
+from math import gcd
 
 
 with open(datafile) as fh:
@@ -40,7 +41,7 @@ def align_schedule(sched):
                itertools.count(start, interval)
                if not (x + offset) % bus)
         start = next(seq)
-        interval *= bus
+        interval = interval // gcd(interval, bus) * bus
     return start
 
 part_2 = align_schedule(parse_bustext(buses_text))
