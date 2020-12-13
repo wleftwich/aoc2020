@@ -1,5 +1,5 @@
 import itertools
-import operator
+
 
 with open(datafile) as fh:
     datatext = fh.read()
