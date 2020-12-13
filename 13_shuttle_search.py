@@ -36,9 +36,10 @@ def align_schedule(sched):
     start = 1
     interval = 1
     for (offset, bus) in sched:
-        s1 = itertools.count(start, interval)
-        s2 = (x for x in s1 if not (x + offset) % bus)
-        start = next(s2)
+        seq = (x for x in 
+               itertools.count(start, interval)
+               if not (x + offset) % bus)
+        start = next(seq)
         interval *= bus
     return start
 
