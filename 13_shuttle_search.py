@@ -1,4 +1,3 @@
-import functools
 import itertools
 import operator
 
@@ -36,11 +35,12 @@ def parse_bustext(txt):
 def align_schedule(sched):
     buses = []
     start = 1
+    interval = 1
     for (offset, bus) in sched:
-        s1 = itertools.count(start, functools.reduce(operator.mul, buses, 1))
+        s1 = itertools.count(start, interval)
         s2 = (x for x in s1 if not (x + offset) % bus)
         start = next(s2)
-        buses.append(bus)
+        interval *= bus
     return start
 
 part_2 = align_schedule(parse_bustext(buses_text))
