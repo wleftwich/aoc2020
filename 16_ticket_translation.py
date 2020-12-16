@@ -46,7 +46,7 @@ def is_valid(ticket, fields=fields):
 valid_tickets = [x for x in nearby_tickets if is_valid(x)]
 valid_tickets.append(my_ticket)
 
-fieldsets = [{i for i in range(len(fields))} for _ in fields]
+fieldsets = [set(range(len(fields))) for _ in fields]
 for t in valid_tickets:
     for i, v in enumerate(t):
         for j, field in enumerate(fields):
