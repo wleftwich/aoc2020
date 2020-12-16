@@ -1,3 +1,5 @@
+%%time
+
 import re
 
 with open(datafile) as fh:
@@ -24,10 +26,7 @@ def is_in_field(v, field):
 error_rate = 0
 for nt in nearby_tickets:
     for v in nt:
-        for f in fields:
-            if is_in_field(v, f):
-                break
-        else:
+        if not any(is_in_field(v, f) for f in fields):
             error_rate += v
             
 part_1 = error_rate
@@ -35,10 +34,7 @@ part_1 = error_rate
 
 def is_valid(ticket, fields=fields):
     for v in ticket:
-        for f in fields:
-            if is_in_field(v, f):
-                break
-        else:
+        if not any(is_in_field(v, f) for f in fields):
             return False
     return True
 
@@ -62,9 +58,9 @@ while any(len(x) > 1 for x in fieldsets):
             fieldset.discard(single)
 
 field_indices = [x.pop() for x in fieldsets]
-sorted_fields = [y for (x, y) in sorted(zip(field_indices, fields))]
+sorted_fieldnames = [y for (x, y) in sorted(zip(field_indices, (x[0] for x in fields)))]
 
-my_fielded_ticket = list(zip((x[0] for x in sorted_fields), my_ticket))
+my_fielded_ticket = list(zip(sorted_fieldnames, my_ticket))
 
 part_2 = 1
 for name, v in my_fielded_ticket:
