@@ -42,7 +42,8 @@ def is_valid(ticket, fields=fields):
 valid_tickets = [x for x in nearby_tickets if is_valid(x)]
 valid_tickets.append(my_ticket)
 
-fieldsets = [set(range(len(fields))) for _ in fields]
+nfields = len(fields)
+fieldsets = [set(range(nfields)) for _ in range(nfields)]
 for t in valid_tickets:
     for i, v in enumerate(t):
         for j, field in enumerate(fields):
@@ -50,8 +51,11 @@ for t in valid_tickets:
                 fieldsets[j].discard(i)
 
 visited = set()
-while any(len(x) > 1 for x in fieldsets):
-    single = next(y for y in (next(iter(x)) for x in fieldsets if len(x) == 1) if y not in visited)
+while True:
+    try:
+        single = next(y for y in (next(iter(x)) for x in fieldsets if len(x) == 1) if y not in visited)
+    except StopIteration:
+        break
     visited.add(single)
     for fieldset in fieldsets:
         if len(fieldset) > 1:
