@@ -20,7 +20,7 @@ def apply_deltas(p, deltas):
     return (add_tuples(p, d) for d in deltas)
 
 def next_coords(D):
-    ks = list(D.keys())
+    ks = list(D)
     dim = len(ks[0])
     ranges = []
     for d in range(dim):
@@ -30,7 +30,7 @@ def next_coords(D):
     return product(*ranges)
 
 def cycle(cube):
-    deltas = make_deltas(len(next(iter(cube.keys()))))
+    deltas = make_deltas(len(next(iter(cube))))
     D = {}
     for k in next_coords(cube):
         v = cube.get(k, '.')
