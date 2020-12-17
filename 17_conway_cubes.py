@@ -1,3 +1,5 @@
+from itertools import product
+
 def read_data(data, dim):
     """Origin at sw corner"""
     D = {}
@@ -25,7 +27,7 @@ def next_coords(D):
         a = min(x[d] for x in ks) - 1
         z = max(x[d] for x in ks) + 2
         ranges.append(range(a, z))
-    return list(product(*ranges))
+    return product(*ranges)
 
 def cycle(cube):
     deltas = make_deltas(len(next(iter(cube.keys()))))
