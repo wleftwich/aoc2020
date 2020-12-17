@@ -16,11 +16,11 @@ fields = []
 for line in fd_txt.strip().split('\n'):
     fieldname = line.split(':')[0]
     a1, z1, a2, z2 = (int(x) for x in re.findall(r'\d+', line))
-    fields.append((fieldname, range(a1, z1+1), range(a2, z2+1)))
+    fields.append((fieldname, a1, z1, a2, z2))
 
 
-def is_in_field(v, field):
-    return v in field[1] or v in field[2]
+def is_in_field(v, f):
+    return f[1] <= v <= f[2] or f[3] <= v <= f[4]
 
 
 error_rate = 0
