@@ -50,7 +50,8 @@ def cycle(cube):
             else:
                 D[k] = '.'
     return D
-   
+
+
 testdata = """\
 .#.
 ..#
