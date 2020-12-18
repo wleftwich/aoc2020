@@ -28,6 +28,8 @@ def cycle(actives):
         if len(neighborhood.intersection(actives)) == 3:
             result.add(cube)
     return result
+
+
 testdata = """\
 .#.
 ..#
