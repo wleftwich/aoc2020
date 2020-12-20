@@ -3,7 +3,7 @@
 with open(datafile) as fh:
     data = [y for y in (x.strip() for x in fh) if y]
 
-
+# Evaluate left to right
 OPERATORS = {
     '+': 0,
     '*': 0
@@ -72,6 +72,7 @@ part_1 = sum(calculate(x) for x in data)
 
 # Part 2
 
+# Evaluate + before *
 OPERATORS = {
     '+': 1,
     '*': 0
