@@ -1,5 +1,9 @@
 # Part 1
 
+with open(datafile) as fh:
+    data = [y for y in (x.strip() for x in fh) if y]
+
+
 OPERATORS = {
     '+': 0,
     '*': 0
