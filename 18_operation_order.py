@@ -38,7 +38,7 @@ def shuntingyard(tokens):
         elif t == ')':
             while stack and stack[-1] != '(':
                 yield stack.pop()
-            _ = stack.pop()
+            stack.pop()
         else:
             raise ValueError("Unknown token: %s", t)
     while stack:
