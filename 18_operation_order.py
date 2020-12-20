@@ -22,7 +22,9 @@ def tokenize(s):
 
 
 def shuntingyard(tokens):
-    """Infix -> RPN"""
+    """Infix -> RPN
+    https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+    """
     stack = []
     for t in tokens:
         if t.isdigit():
