@@ -1,5 +1,4 @@
 import re
-import copy
 
 datafile = 'data/19-1.txt'
 
@@ -35,8 +34,8 @@ def rules_to_re(rules):
 rules_re_1 = rules_to_re(rules)
 part_1 = sum(bool(rules_re_1.match(x)) for x in data)
 
-rules_2 = copy.deepcopy(rules)
-rules_2['8'] = ['(', '42', ')+']
+rules_2 = make_rules(rulestxt.split('\n'))
+rules_2['8'] = ['(?:', '42', ')+']
 rules_2['11'] = [
     '(?:',
     '(?:', '(?:', '42', ')', '{1}', '(?:', '31', ')', '{1}', ')', '|',
