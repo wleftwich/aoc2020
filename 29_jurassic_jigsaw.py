@@ -211,7 +211,7 @@ sea_monster = np.array([
 
 
 def count_monsters(image, monster=sea_monster):
-    return (ndimage.correlate(image, monster, mode='constant') == sea_monster.sum()).sum()
+    return (ndimage.correlate(image, monster, mode='constant') == monster.sum()).sum()
 
 
 image = build_image(endstate, data)
