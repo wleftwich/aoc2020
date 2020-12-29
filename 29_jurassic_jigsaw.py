@@ -86,8 +86,8 @@ def open_positions(grid, n):
                 if nabe in grid:
                     openpos[newk].add(nabe)
                     
-    ## Fill inside corners first
-    return [e for (e, v) in sorted(openpos.items(), key=lambda x: -len(x[1]))]
+    ## Fill inside corners first. Doing a dfs, so push them on the stack last.
+    return [e for (e, v) in sorted(openpos.items(), key=lambda x: len(x[1]))]
 
 
 def possible_tiles(pos, grid, tiles):
