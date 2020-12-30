@@ -56,7 +56,7 @@ while True:
         break
     singletoncount = new_singletoncount
 
-assert not any(len(v) > 1 for v in allergens.values())
+assert all(len(v) == 1 for v in allergens.values())
 
 dangerous_ingredients = [next(iter(v)) for (k, v) in sorted(allergens.items(), key=lambda x: x[0])]
 part_2 = ','.join(dangerous_ingredients)
