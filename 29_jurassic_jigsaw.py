@@ -1,5 +1,5 @@
 import math
-from collections import defaultdict, deque, Counter
+from collections import defaultdict, Counter
 
 import numpy as np
 from scipy import ndimage
