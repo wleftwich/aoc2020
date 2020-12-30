@@ -10,7 +10,7 @@ NESW = [0+1j, 1+0j, 0-1j, -1+0j]
 
 
 def parse_data(txt):
-    recs = [y for y in (x.strip() for x in txt.split('\n\n')) if y]
+    recs = (y for y in (x.strip() for x in txt.split('\n\n')) if y)
     return [parse_rec(rec) for rec in recs]
 
 
