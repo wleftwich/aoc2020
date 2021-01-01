@@ -49,7 +49,7 @@ def flip(tile, floor):
 
     
 def countblack(floor):
-    return sum(v == BLACK for v in floor.values())
+    return sum(floor.values())
 
 
 floor = makefloor()
