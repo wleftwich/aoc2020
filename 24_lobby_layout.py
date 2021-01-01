@@ -61,14 +61,17 @@ part_1 = countblack(floor)
 
 # Part 2
 
+def neighbors(tile):
+    return (tile + d for d in DRXNS.values())
         
 def update_floor(floor):
     newfloor = makefloor()
-    black_tiles = [k for (k, v) in floor.items() if v == BLACK]
     white_tiles = defaultdict(int)
+    black_tiles = (k for (k, v) in floor.items() if v == BLACK])
+
     for bt in black_tiles:
         black_nabe_count = 0
-        for nabe in (bt + d for d in DRXNS.values()):
+        for nabe in neighbors(bt):
             if floor[nabe] == BLACK:
                 black_nabe_count += 1
             else:
@@ -77,9 +80,11 @@ def update_floor(floor):
             newfloor[bt] = WHITE
         else:
             newfloor[bt] = BLACK
+            
     for wt, black_nabe_count in white_tiles.items():
         if black_nabe_count == 2:
             newfloor[wt] = BLACK
+            
     return newfloor
 
 
