@@ -67,7 +67,7 @@ def neighbors(tile):
 def update_floor(floor):
     newfloor = makefloor()
     white_tiles = defaultdict(int)
-    black_tiles = (k for (k, v) in floor.items() if v == BLACK])
+    black_tiles = (k for (k, v) in floor.items() if v == BLACK)
 
     for bt in black_tiles:
         black_nabe_count = 0
