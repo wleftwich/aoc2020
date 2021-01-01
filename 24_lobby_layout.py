@@ -1,13 +1,27 @@
+# Scroll down for embarrassing but working earlier effort
+
 from collections import Counter, defaultdict
+
+datafile = 'data/24-1.txt'
 
 with open(datafile) as fh:
     data = [y for y in (x.strip() for x in fh) if y]
 
-BLACK, WHITE = -1, 1
+
+BLACK, WHITE = 1, 0
+
+DRXNS = {
+    'e': 1+0j,
+    'ne': 0+1j,
+    'nw': -1+1j,
+    'w': -1+0j,
+    'sw': 0-1j,
+    'se': 1-1j
+}
 
 
 def track2tile(track):
-    return normalize_tile(Counter(tokenize_track(track)).items())
+    return sum(DRXNS[x] for x in tokenize_track(track))
 
 
 def tokenize_track(track):
@@ -21,6 +35,85 @@ def tokenize_track(track):
     if buffer:
         raise ValueError('buffer is not empty')
 
+        
+def countblack(floor):
+    return sum(v == BLACK for v in floor.values())
+
+
+def makefloor():
+    return defaultdict(int)
+
+
+def flip(tile, floor):
+    floor[tile] = 1 - floor[tile]
+
+    
+def countblack(floor):
+    return sum(v == BLACK for v in floor.values())
+
+
+floor = makefloor()
+for track in data:
+    flip(track2tile(track), floor)
+
+part_1 = countblack(floor)
+
+
+# Part 2
+
+        
+def update_floor(floor):
+    newfloor = makefloor()
+    black_tiles = [k for (k, v) in floor.items() if v == BLACK]
+    white_tiles = defaultdict(int)
+    for bt in black_tiles:
+        black_nabe_count = 0
+        for nabe in (bt + d for d in DRXNS.values()):
+            if floor[nabe] == BLACK:
+                black_nabe_count += 1
+            else:
+                white_tiles[nabe] += 1
+        if black_nabe_count == 0 or black_nabe_count > 2:
+            newfloor[bt] = WHITE
+        else:
+            newfloor[bt] = BLACK
+    for wt, black_nabe_count in white_tiles.items():
+        if black_nabe_count == 2:
+            newfloor[wt] = BLACK
+    return newfloor
+
+
+
+floor = makefloor()
+for track in data:
+    flip(track2tile(track), floor)
+
+for _ in range(100):
+    floor = update_floor(floor)
+
+part_2 = countblack(floor)
+
+
+first_attempt = """
+
+## Naive coordinate system leads to complicated code
+
+
+BLACK, WHITE = -1, 1
+
+def track2tile(track):
+    return normalize_tile(Counter(tokenize_track(track)).items())
+
+def tokenize_track(track):
+    buffer = ''
+    for c in track:
+        if c in ('e', 'w'):
+            yield buffer + c
+            buffer = ''
+        else:
+            buffer = c
+    if buffer:
+        raise ValueError('buffer is not empty')
 
 def normalize_tile(tile):
     D = defaultdict(int)
@@ -30,7 +123,6 @@ def normalize_tile(tile):
         normalize_tile_step(D) # modify dict in place
         if sum(D.values()) == count:
             return tuple(sorted((k, v) for (k, v) in D.items() if k != 'zero' and v != 0))
-
 
 def normalize_tile_step(D):
     combos = [
@@ -70,16 +162,6 @@ def countblack(floor):
     return sum(v == BLACK for v in floor.values())
 
 
-floor = makefloor()
-for track in data:
-    flip(track2tile(track), floor)
-
-part_1 = countblack(floor)
-
-
-# Part 2
-
-
 def neighbors(tile):
     D = defaultdict(int)
     D.update({k: v for (k, v) in tile})
@@ -88,34 +170,4 @@ def neighbors(tile):
         E[drxn] += 1
         yield normalize_tile(E.items())
 
-        
-def update_floor(floor):
-    newfloor = makefloor()
-    black_tiles = [k for (k, v) in floor.items() if v == BLACK]
-    white_tiles = defaultdict(int)
-    for bt in black_tiles:
-        black_nabe_count = 0
-        for nabe in neighbors(bt):
-            if floor[nabe] == BLACK:
-                black_nabe_count += 1
-            else:
-                white_tiles[nabe] += 1
-        if black_nabe_count == 0 or black_nabe_count > 2:
-            newfloor[bt] = WHITE
-        else:
-            newfloor[bt] = BLACK
-    for wt, black_nabe_count in white_tiles.items():
-        if black_nabe_count == 2:
-            newfloor[wt] = BLACK
-    return newfloor
-
-
-
-floor = makefloor()
-for track in data:
-    flip(track2tile(track), floor)
-
-for _ in range(100):
-    floor = update_floor(floor)
-
-part_2 = countblack(floor)
+"""
