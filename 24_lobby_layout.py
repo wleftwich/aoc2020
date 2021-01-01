@@ -37,7 +37,7 @@ def tokenize_track(track):
 
         
 def countblack(floor):
-    return sum(v == BLACK for v in floor.values())
+    return sum(floor.values())
 
 
 def makefloor():
