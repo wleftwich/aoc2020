@@ -1,4 +1,3 @@
-import time
 from collections import deque, Counter
 
 
@@ -23,10 +22,7 @@ class RecursiveCombatGame:
         c1, c2 = d1.popleft(), d2.popleft()
         if c1 <= len(d1) and c2 <= len(d2):
             self.subgame = RecursiveCombatGame(list(d1)[:c1], list(d2)[:c2])
-            t = time.time()
-            print("recursion", t)
             winner = self.subgame.play()
-            print("and we're back", t)
         else:
             if c1 > c2:
                 winner = 'p1'
